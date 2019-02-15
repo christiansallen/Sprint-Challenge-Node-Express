@@ -19,7 +19,7 @@ router.get("/:id", (req, res) => {
   Actions.get(id)
     .then(action => {
       if (action) {
-        res.status(200).json({ action });
+        res.status(200).json(action);
       } else {
         res.status(404).json({ message: "No actions with that ID are found" });
       }
@@ -65,18 +65,14 @@ router.put("/:id", (req, res) => {
   Actions.update(id, { project_id, description, notes, completed })
     .then(action => {
       if (!project_id || !description || !notes) {
-        res
-          .status(400)
-          .json({
-            message: "Please enter a project id, description and notes."
-          });
+        res.status(400).json({
+          message: "Please enter a project id, description and notes."
+        });
       } else if (!action) {
-        res
-          .status(404)
-          .json({
-            message:
-              "No action was associated with that id. try again with a different id."
-          });
+        res.status(404).json({
+          message:
+            "No action was associated with that id. try again with a different id."
+        });
       } else {
         res.status(200).json(action);
       }
