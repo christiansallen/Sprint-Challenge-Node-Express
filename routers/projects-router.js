@@ -1,5 +1,6 @@
 const express = require("express");
 const Projects = require("../data/helpers/projectModel");
+
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -18,12 +19,12 @@ router.get("/:id", (req, res) => {
   const { id } = req.params;
   Projects.getProjectActions(id)
     .then(project => {
-      if (project) {
+      if (project.length > 0) {
         res.status(200).json(project);
       } else {
         res
           .status(404)
-          .json({ message: "No projects were found with that id" });
+          .json({ message: "No actions were found within this project." });
       }
     })
     .catch(() => res.status(500).json({ message: "server error" }));
